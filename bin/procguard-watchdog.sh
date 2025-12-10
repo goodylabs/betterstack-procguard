@@ -12,10 +12,17 @@
 function print_usage {
   echo "Usage:"
   echo "$0 [HEARTBEAT_ID] [INTERVAL]"
+  echo ""
 }
 
 if [ "x$1" == "x" ]; then
   echo "Missing param HEARTBEAT_ID! "
+  echo ""
+  print_usage
+  exit 1
+fi
+
+if [ "x$1" == "x--help" ]; then
   echo ""
   print_usage
   exit 1
