@@ -6,4 +6,5 @@ Monitor the list of processes on a Unix / Linux / BSD machine and report any une
 
 `bin/procguard-watchdog.sh [BETTERSTACK_HEARTBEAT_ID] 5`
 
-It verifies the list of processes on the local machine every 5 seconds and when a new unknown process appears, it sends the failed heartbeat HTTP request to BetterStack.com API.
+It verifies the process list on the local machine every 5 seconds.
+When a new unknown process appears, it sends a failed heartbeat HTTP request to BetterStack.com API.
