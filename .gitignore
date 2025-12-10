@@ -1,3 +1,4 @@
 # Log file
 *.log
 betterstack-procguard-*.tar.gz
+v*.tar.gz
