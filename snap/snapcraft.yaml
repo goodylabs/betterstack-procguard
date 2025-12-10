@@ -1,0 +1,20 @@
+name: procguard
+version: '1.0'
+summary: Bash process watchdog for Betterstack alerts
+description: |
+  Bash process watchdog for Betterstack alerts
+
+grade: stable
+confinement: strict
+
+apps:
+  procguard:
+    command: bin/procguard-watchdog.sh
+
+parts:
+  procguard:
+    plugin: dump
+    source: .
+    organize:
+      bin/procguard-watchdog.sh: bin/procguard-watchdog.sh
+

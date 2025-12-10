@@ -1,0 +1,27 @@
+name: Build Snap
+
+on:
+  push:
+    tags:
+      - 'v*.*'  
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install snapcraft
+        run: sudo snap install snapcraft --classic
+
+      - name: Build snap
+        run: snapcraft
+
+      - name: Upload snap artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: procguard-snap
+          path: '*.snap'
+
