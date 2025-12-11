@@ -2,7 +2,7 @@ class Procguard < Formula
   desc "Bash process watchdog for Betterstack alerts"
   homepage "https://github.com/goodylabs/betterstack-procguard"
   url "https://github.com/goodylabs/betterstack-procguard/archive/refs/tags/v1.2.tar.gz"
-  sha256 "b9d916693b0a95a844493e2d622b0f42f886d5539f1a683839e65f4db8d5e605"
+  sha256 "ab347031f731b34a1841d661d4e1b0614088a4b1a9eefcd02bd5cb75bd96cfc8"
   license "MIT"
 
   def install
