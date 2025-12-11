@@ -5,7 +5,7 @@ description: |
   Bash process watchdog for Betterstack alerts
 
 grade: stable
-confinement: strict
+confinement: classic
 base: core24
 
 apps:
