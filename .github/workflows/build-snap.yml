@@ -2,6 +2,8 @@ name: Build Snap
 
 on:
   push:
+    branches:
+      - main
     tags:
       - 'v*.*'  
 
@@ -20,8 +22,8 @@ jobs:
         run: snapcraft
 
       - name: Upload snap artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
-          name: procguard-snap
+          name: procguard
           path: '*.snap'
 
