@@ -1,3 +1,5 @@
+[![Build Snap](https://github.com/goodylabs/betterstack-procguard/actions/workflows/build-snap.yml/badge.svg?branch=main)](https://github.com/goodylabs/betterstack-procguard/actions/workflows/build-snap.yml)
+
 # betterstack-procguard
 
 Monitor the list of processes on a Unix / Linux / BSD machine and report any unexpected processes to BetterStack.com as failed heartbeats.
