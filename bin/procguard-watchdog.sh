@@ -32,7 +32,7 @@ HEARTBEAT_ID="${1}"
 INTERVAL="${2:-60}"
 
 if [ "x$2" == "x" ]; then
-  echo "[INIT] Missing param INTERVAL! Setting default to ${INTERVAL} ..."
+  echo "[INFO] Missing param INTERVAL! Setting default to ${INTERVAL} ..."
 fi
 
 HEARTBEAT_SUCCESS_URL="https://uptime.betterstack.com/api/v1/heartbeat/${HEARTBEAT_ID}"
@@ -42,19 +42,24 @@ CONFIG_FILE_LINE_COUNT=0
 
 AWK=`which awk`
 CURL=`which curl`
+DATE=`which date`
 GREP=`which grep`
 HEAD=`which head`
 HOSTNAME=`which hostname`
 IP=`which ip`
 PS=`which ps`
+SLEEP=`which sleep`
 SORT=`which sort`
 UNAME=`which uname`
 WC=`which wc`
 
 declare -A WHITELIST
 
+function current_time {
+  ${DATE} "+%Y-%m-%d %H:%M:%S"
+}
 
-echo "[INIT] Getting data about machine ..."
+echo "$(current_time) [INIT] Getting data about machine ..."
 
 OS=`${UNAME}`
 
@@ -69,7 +74,7 @@ fi
 
 echo -e "\tHost name: ${HOST_NAME}, primary IP: ${HOST_IP}"
 
-echo "[INIT] Gathering facts about processes ..."
+echo "$(current_time) [INIT] Gathering facts about processes ..."
 
 INIT_PROCESSES=$(${PS} -efwww | ${GREP} -v "\[.*\]$" | ${AWK} '{print $8}' | ${SORT} -u)
 
@@ -78,31 +83,31 @@ while read -r proc; do
 done <<< "$INIT_PROCESSES"
 
 if [[ -f "$CONFIG_FILE" ]]; then
-  echo "[INIT] Fetching process whitelist from $CONFIG_FILE"
+  echo "$(current_time) [INIT] Fetching process whitelist from $CONFIG_FILE"
   while IFS= read -r line; do
     [[ -z "$line" || "$line" =~ ^# ]] && continue # skip empty lines and commented out lines
     WHITELIST["$line"]=1
     ((CONFIG_FILE_LINE_COUNT++))
   done < "$CONFIG_FILE"
 else
-  echo "[INIT] No additional whitelist in $CONFIG_FILE (OK)"
+  echo "$(current_time) [INIT] No additional whitelist in $CONFIG_FILE (OK)"
 fi
 
 if [ $CONFIG_FILE_LINE_COUNT -gt 0 ]; then
-  echo "[INIT] Read ${CONFIG_FILE_LINE_COUNT} lines from ${CONFIG_FILE} ..."
+  echo -e "$(current_time) [INIT] \tRead ${CONFIG_FILE_LINE_COUNT} lines from ${CONFIG_FILE} ..."
 fi
 
-echo "[INIT] Process dictionary loaded. There are ${#WHITELIST[@]} processes in the dictionary."
+echo "$(current_time) [INIT] Process dictionary loaded. There are ${#WHITELIST[@]} processes in the dictionary."
 
 while true; do
   CURRENT_PROCS=$(${PS} -efwww | ${GREP} -v "\[.*\]$" | ${AWK} '{print $8}' | ${SORT} -u)
 
-  echo "[INFO] Checking current process list..."
+  echo "$(current_time) [INFO] Checking current process list..."
   ${CURL} -s -X GET "${HEARTBEAT_SUCCESS_URL}" >/dev/null 2>&1
 
   while read -r current; do
     if [[ -z "${WHITELIST["$current"]}" ]]; then
-      echo "[ALERT] New process: $current"
+      echo "$(current_time) [ALERT] New process: $current"
 
       error_message="Unknown process ${current} on machine ${HOST_NAME} (${HOST_IP})"
       echo "Error message: ${error_message}"
@@ -111,5 +116,5 @@ while true; do
     fi
   done <<< "$CURRENT_PROCS"
 
-  sleep "$INTERVAL"
+  ${SLEEP} "$INTERVAL"
 done
