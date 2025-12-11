@@ -1,4 +1,6 @@
 # Log file
 *.log
 betterstack-procguard-*.tar.gz
+betterstack-procguard-*.zip
+*.snap
 v*.tar.gz
