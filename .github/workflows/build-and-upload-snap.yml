@@ -29,7 +29,6 @@ jobs:
 
       - name: Upload snap to Snap Store
         run: |
-          unzip procguard.zip
           snapcraft upload ./procguard_1.0_amd64.snap --release=stable
         env:
           SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAPCRAFT_STORE_CREDENTIALS }}
