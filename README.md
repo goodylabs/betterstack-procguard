@@ -1,4 +1,4 @@
-[![Build Snap](https://github.com/goodylabs/betterstack-procguard/actions/workflows/build-snap.yml/badge.svg?branch=main)](https://github.com/goodylabs/betterstack-procguard/actions/workflows/build-snap.yml)
+[![Build Snap](https://github.com/goodylabs/betterstack-procguard/actions/workflows/build-and-upload-snap.yml/badge.svg?branch=main)](https://github.com/goodylabs/betterstack-procguard/actions/workflows/build-and-upload-snap.yml)
 
 # betterstack-procguard
 
