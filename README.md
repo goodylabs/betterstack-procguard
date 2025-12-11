@@ -17,3 +17,14 @@ When a new unknown process appears, it sends a failed heartbeat HTTP request to 
 brew tap goodylabs/betterstack-procguard https://github.com/goodylabs/betterstack-procguard
 brew install procguard
 ```
+
+### Linux
+
+1. Get the latest snap from https://github.com/goodylabs/betterstack-procguard/actions -> choose details of the latest run
+2. Download procguard artifact as procguard.zip
+3. Run the following on your Linux machine
+
+```
+unzip procguard.zip
+sudo snap install procguard_1.0_amd64.snap --dangerous --classic
+```
