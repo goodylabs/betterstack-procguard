@@ -27,3 +27,10 @@ jobs:
           name: procguard
           path: '*.snap'
 
+      - name: Publish snap to Snap Store
+        run: |
+          snapcraft login --with $SNAPCRAFT_AUTH_TOKEN
+          snapcraft push procguard_*.snap --release=stable
+        env:
+          SNAPCRAFT_AUTH_TOKEN: ${{ secrets.SNAPCRAFT_AUTH_TOKEN }}
+
