@@ -19,7 +19,7 @@ jobs:
         run: sudo snap install snapcraft --classic
 
       - name: Build snap
-        run: snapcraft pack
+        run: snapcraft pack --destructive-mode
 
       - name: Upload snap artifact
         uses: actions/upload-artifact@v4
