@@ -27,10 +27,10 @@ jobs:
           name: procguard
           path: '*.snap'
 
-      - name: Publish snap to Snap Store
+      - name: Upload snap to Snap Store
         run: |
-          snapcraft login --with $SNAPCRAFT_AUTH_TOKEN
-          snapcraft push procguard_*.snap --release=stable
+          unzip procguard.zip
+          snapcraft upload ./procguard_1.0_amd64.snap --release=stable
         env:
-          SNAPCRAFT_AUTH_TOKEN: ${{ secrets.SNAPCRAFT_AUTH_TOKEN }}
+          SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAPCRAFT_STORE_CREDENTIALS }}
 
