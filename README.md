@@ -39,5 +39,5 @@ brew install procguard
 
 ```
 unzip procguard.zip
-sudo snap install procguard_1.2_amd64.snap --dangerous --classic
+sudo snap install procguard_1.3_amd64.snap --dangerous --classic
 ```
