@@ -11,6 +11,17 @@ Monitor the list of processes on a Unix / Linux / BSD machine and report any une
 It verifies the process list on the local machine every 5 seconds.
 When a new unknown process appears, it sends a failed heartbeat HTTP request to BetterStack.com API.
 
+You can define allowed process names in 
+`$HOME/.config/procguard-watchdog.inc`
+
+You can use literal full paths like 
+
+`/bin/bash` 
+
+or substrings like: 
+
+`node_modules/@esbuild/darwin-x64/bin/esbuild`
+
 ## Installation 
 
 ### macOS
