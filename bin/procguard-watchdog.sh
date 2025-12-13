@@ -106,7 +106,8 @@ while true; do
   ${CURL} -s -X GET "${HEARTBEAT_SUCCESS_URL}" >/dev/null 2>&1
 
   while read -r current; do
-    if [[ -z "${WHITELIST["$current"]}" ]]; then
+    shortened_current_in_node_modules="node_modules/${current##*/node_modules/}"
+    if [[ -z "${WHITELIST["$current"]}" ]] && [[ -z "${WHITELIST["$shortened_current_in_node_modules"]}" ]]; then
       echo "$(current_time) [ALERT] New process: $current"
 
       error_message="Unknown process ${current} on machine ${HOST_NAME} (${HOST_IP})"
