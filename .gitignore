@@ -1,6 +1,12 @@
 # Log file
 *.log
+
+# GFX files
+.DS_Store
+
+# Releases
 betterstack-procguard-*.tar.gz
 betterstack-procguard-*.zip
+procguard*.zip
 *.snap
 v*.tar.gz
