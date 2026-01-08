@@ -2,9 +2,9 @@
 
 ###################################
 #                                 #
-#  ProcGuard Watchdog v 1.0       #
+#  ProcGuard Watchdog v 1.1       #
 #                                 #
-#  Copyright goodylabs 2025       #
+#  Copyright goodylabs 2025-2026  #
 #                                 #
 ###################################
 
@@ -107,7 +107,9 @@ while true; do
 
   while read -r current; do
     shortened_current_in_node_modules="node_modules/${current##*/node_modules/}"
-    if [[ -z "${WHITELIST["$current"]}" ]] && [[ -z "${WHITELIST["$shortened_current_in_node_modules"]}" ]]; then
+    shortened_current_in_snap="/${current#*/snap/certbot/*/}"
+
+    if [[ -z "${WHITELIST["$current"]}" ]] && [[ -z "${WHITELIST["$shortened_current_in_node_modules"]}" ]] && [[ -z "${WHITELIST["$shortened_current_in_snap"]}" ]]; then
       echo "$(current_time) [ALERT] New process: $current"
 
       error_message="Unknown process ${current} on machine ${HOST_NAME} (${HOST_IP})"
