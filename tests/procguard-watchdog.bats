@@ -36,12 +36,10 @@ setup() {
 @test "alerts on unknown process" {
   RUN_ONCE=1 run ./bin/procguard-watchdog.sh abc123 1
 
-  echo $output
-
   [[ "$output" == *"[ALERT] New process: /evil"* ]]
 
   grep -q \
-    "POST https://uptime.betterstack.com/api/v1/heartbeat/abc123/fail" \
-    "$BATS_TEST_TMPDIR/curl.log"
+  'POST -d Unknown process /evil on machine test-host (eth0) https://uptime.betterstack.com/api/v1/heartbeat/abc123/fail' \
+  "$BATS_TEST_TMPDIR/curl.log"
 }
 

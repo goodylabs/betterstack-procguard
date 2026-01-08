@@ -7,9 +7,9 @@ echo "$COUNT" > "$COUNT_FILE"
 
 if [ "$COUNT" -eq 1 ]; then
   # INIT
-  echo "root 1 0 0 ? 00:00:01 /known"
+  echo "root 1 0 0 6:00 ttys021 00:00:01 /known"
 else
   # LOOP
-  echo "root 1 0 0 ? 00:00:01 /known"
-  echo "root 2 0 0 ? 00:00:01 /evil"
+  echo "root 1 0 0 6:00 ttys021 00:00:01 /known"
+  echo "root 2 0 0 6:01 ttys021 00:00:01 /evil"
 fi
