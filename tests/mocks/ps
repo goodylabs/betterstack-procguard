@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+COUNT_FILE="${BATS_TEST_TMPDIR}/ps.count"
+COUNT=$(cat "$COUNT_FILE" 2>/dev/null || echo 0)
+COUNT=$((COUNT + 1))
+echo "$COUNT" > "$COUNT_FILE"
+
+if [ "$COUNT" -eq 1 ]; then
+  # INIT
+  echo "root 1 0 0 ? 00:00:01 /known"
+else
+  # LOOP
+  echo "root 1 0 0 ? 00:00:01 /known"
+  echo "root 2 0 0 ? 00:00:01 /evil"
+fi

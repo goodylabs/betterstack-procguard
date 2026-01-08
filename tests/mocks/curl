@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+echo "curl $@" >> "$BATS_TEST_TMPDIR/curl.log"
+exit 0
+

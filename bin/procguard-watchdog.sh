@@ -28,6 +28,7 @@ if [ "x$1" == "x--help" ]; then
   exit 1
 fi
 
+PS_CALL_COUNT=0
 HEARTBEAT_ID="${1}"
 INTERVAL="${2:-60}"
 
@@ -59,6 +60,11 @@ function current_time {
   ${DATE} "+%Y-%m-%d %H:%M:%S"
 }
 
+function get_processes() {
+  PS_CALL_COUNT=$((PS_CALL_COUNT+1))
+  ${PS} -efwww | ${GREP} -v "\[.*\]$" | ${AWK} '{print $8}' | ${SORT} -u
+}
+
 echo "$(current_time) [INIT] Getting data about machine ..."
 
 OS=`${UNAME}`
@@ -76,7 +82,7 @@ echo -e "\tHost name: ${HOST_NAME}, primary IP: ${HOST_IP}"
 
 echo "$(current_time) [INIT] Gathering facts about processes ..."
 
-INIT_PROCESSES=$(${PS} -efwww | ${GREP} -v "\[.*\]$" | ${AWK} '{print $8}' | ${SORT} -u)
+INIT_PROCESSES=`get_processes`
 
 while read -r proc; do
   WHITELIST["$proc"]=1
@@ -100,7 +106,7 @@ fi
 echo "$(current_time) [INIT] Process dictionary loaded. There are ${#WHITELIST[@]} processes in the dictionary."
 
 while true; do
-  CURRENT_PROCS=$(${PS} -efwww | ${GREP} -v "\[.*\]$" | ${AWK} '{print $8}' | ${SORT} -u)
+  CURRENT_PROCS=`get_processes`
 
   echo "$(current_time) [INFO] Checking current process list..."
   ${CURL} -s -X GET "${HEARTBEAT_SUCCESS_URL}" >/dev/null 2>&1
@@ -118,6 +124,11 @@ while true; do
       ${CURL} -s -X POST -d "${error_message}" "$HEARTBEAT_FAIL_URL" >/dev/null 2>&1
     fi
   done <<< "$CURRENT_PROCS"
+
+  if [ "${RUN_ONCE:-0}" == "1" ]; then
+    echo "$(current_time) [INFO] RUN_ONCE=1 -> exiting after one iteration"
+    exit 0
+  fi
 
   ${SLEEP} "$INTERVAL"
 done
