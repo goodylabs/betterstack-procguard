@@ -56,8 +56,8 @@ There is no way to build *snap* on macOS
 
 
 ```bash
-brew install snapcraft
-snapcraft pack --destructive-mode
+brew update
+brew upgrade goodylabs/betterstack-procguard/procguard
 ```
 
 ## Linux
