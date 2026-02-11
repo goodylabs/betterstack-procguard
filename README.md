@@ -39,5 +39,30 @@ brew install procguard
 
 ```
 unzip procguard.zip
-sudo snap install procguard_1.3_amd64.snap --dangerous --classic
+sudo snap install procguard_1.4_amd64.snap --dangerous --classic
+```
+
+## Testing
+
+```bash
+bats tests
+```
+
+## Releasing
+
+### macOS
+
+There is no way to build *snap* on macOS
+
+
+```bash
+brew install snapcraft
+snapcraft pack --destructive-mode
+```
+
+## Linux
+
+```bash
+snap install snapcraft --classic
+snapcraft pack --destructive-mode
 ```

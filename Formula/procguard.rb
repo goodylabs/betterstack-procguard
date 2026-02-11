@@ -1,8 +1,8 @@
 class Procguard < Formula
   desc "Bash process watchdog for Betterstack alerts"
   homepage "https://github.com/goodylabs/betterstack-procguard"
-  url "https://github.com/goodylabs/betterstack-procguard/archive/refs/tags/v1.3.tar.gz"
-  sha256 "d2dafd873a6c6c2ae804acce6c86899f27ec5ee0c072e0a879da7b34dd88bae9"
+  url "https://github.com/goodylabs/betterstack-procguard/archive/refs/tags/v1.4.tar.gz"
+  sha256 "e057b3b0a33722da2bdb2fb3c9d4fead4da4e31e1bd1137c4768dd120eb9fa15"
   license "MIT"
 
   def install
@@ -10,6 +10,6 @@ class Procguard < Formula
   end
 
   test do
-    system "#{bin}/procguard", "--help"
+    assert_match "Usage:", shell_output("#{bin}/procguard --help", 0)
   end
 end

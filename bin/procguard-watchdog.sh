@@ -2,7 +2,7 @@
 
 ###################################
 #                                 #
-#  ProcGuard Watchdog v 1.1       #
+#  ProcGuard Watchdog v 1.4       #
 #                                 #
 #  Copyright goodylabs 2025-2026  #
 #                                 #
@@ -25,7 +25,7 @@ fi
 if [ "x$1" == "x--help" ]; then
   echo ""
   print_usage
-  exit 1
+  exit 0
 fi
 
 PS_CALL_COUNT=0
