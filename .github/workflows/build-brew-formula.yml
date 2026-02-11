@@ -17,5 +17,6 @@ jobs:
 
       - name: Build and install procguard
         run: |
+          brew tap-new goodylabs/betterstack-procguard
           brew install --build-from-source ./Formula/procguard.rb
           procguard --help
