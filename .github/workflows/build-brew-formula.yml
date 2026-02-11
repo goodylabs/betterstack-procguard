@@ -1,0 +1,21 @@
+name: Build Brew Formula
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - 'v*.*'
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Build and install procguard
+        run: |
+          brew install --build-from-source ./Formula/procguard.rb
+          procguard --help
